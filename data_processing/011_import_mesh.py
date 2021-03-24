@@ -1,6 +1,8 @@
 import os
+import math as m
 from compas.datastructures import Mesh
-from compas.utilities import i_to_rgb
+from compas.datastructures import mesh_transform_numpy
+from compas.geometry import matrix_from_axis_and_angle
 
 from compas_view2.app import App
 
@@ -17,10 +19,23 @@ FILE_I = os.path.join(HERE, 'data', 'cube_6/Cube_shard.obj')
 # ==============================================================================
 mesh = Mesh.from_obj(FILE_I)
 
+# # get vertex key and coordinates
+# for vkey in mesh.vertices():
+#     xyz = mesh.vertex_coordinates(vkey)
+#     print('vertex key: ', vkey, 'coordinate: ', xyz)
+
+# transform mesh
+T = matrix_from_axis_and_angle([0, 0.5, 0.3], m.pi / 4)
+# create a copy of the original mesh 
+mesh_t = mesh.copy()
+mesh_transform_numpy(mesh_t, T)
 
 # ==============================================================================
 # Viz
 # ==============================================================================
 viewer = App()
-viewer.add(mesh)
+# only show points
+viewer.add(mesh_t, show_points=True, show_lines=False, show_faces=False)
+# show the mesh
+# viewer.add(mesh)
 viewer.run()
