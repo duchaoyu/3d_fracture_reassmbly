@@ -11,7 +11,7 @@ from compas_view2.app import App
 # ==============================================================================
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 FILE_FOLDER = os.path.join(HERE, 'data', 'cube_6')
-FILE_I = os.path.join(HERE, 'data', 'cube_6/Cube_shard.obj')
+FILE_I = os.path.join(HERE, 'data', 'cube_20/Cube_shard.004.obj')
 
 
 # ==============================================================================
@@ -35,7 +35,7 @@ mesh_transform_numpy(mesh_t, T)
 # ==============================================================================
 viewer = App()
 # only show points
-viewer.add(mesh_t, show_points=True, show_lines=False, show_faces=False)
+# viewer.add(mesh_t, show_points=True, show_lines=False, show_faces=False)
 # show the mesh
-# viewer.add(mesh)
+viewer.add(mesh, show_points=True, show_lines=False, show_faces=False)
 viewer.run()
