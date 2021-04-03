@@ -1,7 +1,7 @@
 import bpy
 import os
 
-PATH = os.path.abspath("C:\\Users\\Chaoyu\\Documents\\3dvision")
+PATH = os.path.abspath("C:\\Users\\Chaoyu\\Documents\\Github\\3d_fracture_reassmbly\\data\\cat_seed_5")
 
 # deselect all objects
 bpy.ops.object.select_all(action='DESELECT')    
