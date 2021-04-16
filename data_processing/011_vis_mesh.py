@@ -22,18 +22,6 @@ centorid = mesh.centroid()
 T = Translation.from_vector([a * -1 for a in centorid])
 mesh_transform_numpy(mesh, T)
 
-# calculate the euler characteristic
-# https://en.wikipedia.org/wiki/Euler_characteristic
-print(mesh.euler())
-
-# print(mesh.adjacency)
-# connect_components = mesh_connected_components(mesh)
-
-# TODO: fix this in blender output... 
-# this obj file might contain several water-tight meshes...
-# explode meshes to connected parts
-exploded_meshes = mesh_explode(mesh)
-
 mesh.to_off(FILE_O, author="Chaoyu")
 
 # ==============================================================================
@@ -43,5 +31,5 @@ viewer = App()
 # only show points
 # viewer.add(mesh, show_points=True, show_lines=False, show_faces=False)
 # show the mesh
-viewer.add(exploded_meshes[0])
+viewer.add(mesh)
 viewer.run()
