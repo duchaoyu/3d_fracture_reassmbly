@@ -22,10 +22,14 @@ for i, filename in enumerate(os.listdir(FILE_FOLDER)):
 
         # explode joined meshes
         exploded_meshes = mesh_explode(mesh)
+        
         for ex_mesh in exploded_meshes:
             FILE_O = os.path.join(FILE_FOLDER, '%s_%s.npy' % (folder_name, counter))
-            vertices = np.array([mesh.vertex_coordinates(vkey) for vkey in mesh.vertices()])
-            normals = np.array([mesh.vertex_normal(vkey) for vkey in mesh.vertices()])
+            # delete tiny pieces
+            if len(list(ex_mesh.vertices())) < 100:
+                continue
+            vertices = np.array([mesh.vertex_coordinates(vkey) for vkey in ex_mesh.vertices()])
+            normals = np.array([mesh.vertex_normal(vkey) for vkey in ex_mesh.vertices()])
 
             datas = np.concatenate((vertices, normals), axis=1)
             print(np.shape(datas))

@@ -43,8 +43,13 @@ max_dis = max_dis_ratio * diag
 # noise numbers 
 
 amount = int(len(list(mesh.vertices())) * amount_ratio)
+
+colors = {}
+random_pts = set()
+
 for n in range(amount):
     vkey = mesh.get_any_vertex()
+    random_pts.add(vkey)
     normal = mesh.vertex_normal(vkey)
     length = r.uniform(-max_dis/3, max_dis)
     vec = cg.scale_vector(cg.normalize_vector(normal), length)
@@ -52,6 +57,7 @@ for n in range(amount):
     new_xyz = cg.add_vectors(vec, xyz)
     mesh.vertex_attributes(vkey, "xyz", new_xyz)
 
+colors.update({vkey: (255, 0, 0) for vkey in list(random_pts)})
 
 mesh.to_off(FILE_O, author="Chaoyu")
 # ==============================================================================
