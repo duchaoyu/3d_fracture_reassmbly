@@ -1,9 +1,64 @@
 import bpy
+import bmesh
+from bpy.types import Operator
+from bpy.props import FloatVectorProperty, IntVectorProperty
+from bpy_extras.object_utils import AddObjectHelper, object_data_add
 
-object = bpy.data.objects['gp1.001']
+from mathutils import Matrix
+bpy.app.debug = True
+bpyscene = bpy.context.scene
 
-modifier = object.modifiers.new(name="Remesh", type='REMESH')
-modifier.octree_depth = 5
+# delete all the meshes
+bpy.ops.mesh.select_all(action='DESELECT')
+for o in bpyscene.objects:
+    if o.type == 'MESH':
+        o.select = True
+    else:
+        o.select = False
+bpy.ops.object.delete()
+
+# Create an empty mesh and the object.
+bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
+
+# loop through all the objects in the scene
+for ob in bpyscene.objects:
+    if ob.type == 'MESH':
+        # make the current object active and select it
+        scene.objects.active = ob
+        ob.select = True
+
+ob = bpy.context.active_object
+
+# change to edit mode
+if bpy.ops.object.mode_set.poll():
+    bpy.ops.object.mode_set(mode='EDIT')
+print("Active object = ",ob.name)
+
+me = ob.data
+bm = bmesh.new()
+bm.from_mesh(me)
+
+# subdivide
+bmesh.ops.subdivide_edges(bm,
+                          edges=bm.edges,
+                          cuts=1,
+                          use_grid_fill=True,
+                          )
+
+# Write back to the mesh
+bpy.ops.mesh.select_all(action='DESELECT')
+bm.select_flush(True)
+
+bpy.ops.object.mode_set(mode='OBJECT') # if bmesh.from_edit_mesh() --> mode == EDIT - ValueError: to_mesh(): Mesh 'Cube' is in editmode 
+bm.to_mesh(me) #If mode ==Object  -> ReferenceError: BMesh data of type BMesh has been removed
+bm.free() 
+ob.update_from_editmode()
+
+modifier = object.modifiers.new(name="Fracture", frac_algorithm='BISECT_FAST_FILL')
+# object = bpy.data.objects['gp1.001']
+
+# modifier = object.modifiers.new(name="Remesh", type='REMESH')
+# modifier.octree_depth = 5
 
 # import os
 
