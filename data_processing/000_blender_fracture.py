@@ -9,7 +9,7 @@ bpy.app.debug = True
 bpyscene = bpy.context.scene
 
 # delete all the meshes
-bpy.ops.mesh.select_all(action='DESELECT')
+# bpy.ops.mesh.select_all(action='DESELECT')
 for o in bpyscene.objects:
     if o.type == 'MESH':
         o.select = True
@@ -24,7 +24,7 @@ bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
 for ob in bpyscene.objects:
     if ob.type == 'MESH':
         # make the current object active and select it
-        scene.objects.active = ob
+        bpyscene.objects.active = ob
         ob.select = True
 
 ob = bpy.context.active_object
@@ -41,7 +41,7 @@ bm.from_mesh(me)
 # subdivide
 bmesh.ops.subdivide_edges(bm,
                           edges=bm.edges,
-                          cuts=1,
+                          cuts=10,
                           use_grid_fill=True,
                           )
 
@@ -54,7 +54,21 @@ bm.to_mesh(me) #If mode ==Object  -> ReferenceError: BMesh data of type BMesh ha
 bm.free() 
 ob.update_from_editmode()
 
-modifier = object.modifiers.new(name="Fracture", frac_algorithm='BISECT_FAST_FILL')
+# modifier = object.modifiers.new(name="Fracture", frac_algorithm='BOOLEAN_FRACTAL')
+bpy.ops.object.modifier_add(type='FRACTURE')
+md = ob.modifiers["Fracture"]
+md.fracture_mode = 'PREFRACTURED'
+md.frac_algorithm = 'BOOLEAN_FRACTAL'
+md.fractal_cuts = 2
+md.fractal_iterations = 4
+md.shard_count = 20
+md.point_seed = 1  # random seed
+
+bpy.ops.object.fracture_refresh()
+
+
+
+
 # object = bpy.data.objects['gp1.001']
 
 # modifier = object.modifiers.new(name="Remesh", type='REMESH')
