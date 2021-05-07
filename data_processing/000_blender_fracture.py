@@ -10,6 +10,9 @@ bpy.app.debug = True
 bpyscene = bpy.context.scene
 
 
+# primitive = "cube"
+primitive = "cylinder"
+
 for seed in range(1, 5):
 
     # delete all the meshes
@@ -22,7 +25,10 @@ for seed in range(1, 5):
     bpy.ops.object.delete()
 
     # Create an empty mesh and the object.
-    bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
+    if primitive == "cube":
+        bpy.ops.mesh.primitive_cube_add(location=(0, 0, 0))
+    elif primitive == "cylinder":
+        bpy.ops.mesh.primitive_cylinder_add(location=(0, 0, 0))
 
     # loop through all the objects in the scene
     for ob in bpyscene.objects:
@@ -77,7 +83,7 @@ for seed in range(1, 5):
 
 
     folder = os.path.abspath("C:\\Users\\Chaoyu\\Documents\\Github\\3d_fracture_reassmbly\\data")
-    name = "cube_"+str(count) + "_seed_" + str(seed)
+    name = primitive + "_" + str(count) + "_seed_" + str(seed)
     path = os.path.join(folder, name)
     os.makedirs(path, exist_ok=True)
 
