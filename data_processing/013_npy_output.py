@@ -30,8 +30,8 @@ for i, filename in enumerate(os.listdir(FILE_FOLDER)):
                 if len(list(ex_mesh.vertices())) < 100:
                     continue
                 
-                vertices = np.array([mesh.vertex_coordinates(vkey) for vkey in ex_mesh.vertices()])
-                normals = np.array([mesh.vertex_normal(vkey) for vkey in ex_mesh.vertices()])
+                vertices = np.array([ex_mesh.vertex_coordinates(vkey) for vkey in ex_mesh.vertices()])
+                normals = np.array([ex_mesh.vertex_normal(vkey) for vkey in ex_mesh.vertices()])
 
                 datas = np.concatenate((vertices, normals), axis=1)
                 print(np.shape(datas))
