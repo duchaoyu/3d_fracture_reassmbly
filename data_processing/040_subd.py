@@ -13,7 +13,7 @@ from compas.utilities import i_to_rgb
 # File
 # ==============================================================================
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-folder_name = 'cube_20_seed_4'
+folder_name = 'cat'
 FILE_FOLDER = os.path.join(HERE, 'data', folder_name)
 
 # ==============================================================================
