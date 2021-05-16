@@ -13,7 +13,7 @@ from compas.utilities import i_to_rgb
 # File
 # ==============================================================================
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-folder_name = 'cat_seed_3'
+folder_name = 'cylinder_20_seed_9'
 FILE_FOLDER = os.path.join(HERE, 'data', folder_name)
 
 # ==============================================================================
@@ -21,7 +21,7 @@ FILE_FOLDER = os.path.join(HERE, 'data', folder_name)
 # ==============================================================================
 
 meshes = []
-max_len_v = 0
+max_len_v = 2000
 
 for i, filename in enumerate(os.listdir(FILE_FOLDER)):
     print(filename)
