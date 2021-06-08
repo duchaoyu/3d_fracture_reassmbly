@@ -8,7 +8,7 @@ from compas.datastructures import mesh_explode
 # File
 # ==============================================================================
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-folder_name = 'cylinder_20_seed_9'
+folder_name = 'plate'
 FILE_FOLDER = os.path.join(HERE, 'data', folder_name)
 
 # ==============================================================================
