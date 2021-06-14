@@ -30,8 +30,6 @@ print(mesh.euler())
 # print(mesh.adjacency)
 # connect_components = mesh_connected_components(mesh)
 
-# TODO: fix this in blender output... 
-# this obj file might contain several water-tight meshes...
 # explode meshes to connected parts
 exploded_meshes = mesh_explode(mesh)
 
